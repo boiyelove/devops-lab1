@@ -1,0 +1,17 @@
+# Allowed packages for Lab 1
+# Your scripts may only use tools from this list.
+# The CI environment (Ubuntu 22.04) has these pre-installed or will install them.
+
+bash
+coreutils
+grep
+sed
+awk
+curl
+dig (dnsutils)
+traceroute
+ufw
+systemctl (systemd)
+openssl
+ssh-keygen (openssh-client)
+shellcheck

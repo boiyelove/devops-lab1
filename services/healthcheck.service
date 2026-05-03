@@ -1,0 +1,10 @@
+# Stub: systemd service unit for healthcheck
+# Complete this file per the instructions in README.md
+#
+# Requirements:
+# - Run /usr/local/bin/healthcheck.sh
+# - Start after network-online.target
+# - Restart on failure with 5-second delay
+# - Log to journal with identifier 'healthcheck'
+#
+# Ref: svc-19ad9c71

@@ -1,0 +1,5 @@
+Status: active
+Default: deny (incoming), allow (outgoing)
+22/tcp                     ALLOW       Anywhere
+8443/tcp                   ALLOW       Anywhere
+443/tcp                    ALLOW       Anywhere

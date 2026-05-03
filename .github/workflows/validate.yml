@@ -1,0 +1,41 @@
+name: Submit Lab
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Package and submit
+        env:
+          SUBMIT_URL: ${{ secrets.PATHFINDER_SUBMIT_URL }}
+          SUBMIT_SECRET: ${{ secrets.PATHFINDER_SUBMIT_SECRET }}
+        run: |
+          # Create tarball of the submission (exclude .git)
+          tar czf /tmp/submission.tar.gz --exclude=.git .
+
+          # Sign the tarball
+          SIGNATURE=$(openssl dgst -sha256 -hmac "$SUBMIT_SECRET" /tmp/submission.tar.gz | awk '{print "sha256="$2}')
+
+          # Submit to the platform
+          HTTP_CODE=$(curl -s -o /tmp/response.json -w "%{http_code}" \
+            -X POST "$SUBMIT_URL" \
+            -H "X-Hub-Signature-256: $SIGNATURE" \
+            -H "X-GitHub-Actor: ${{ github.actor }}" \
+            -H "X-GitHub-Repo: ${{ github.repository }}" \
+            -H "X-GitHub-SHA: ${{ github.sha }}" \
+            -H "X-GitHub-Ref: ${{ github.ref_name }}" \
+            -F "submission=@/tmp/submission.tar.gz")
+
+          echo "Server responded: HTTP $HTTP_CODE"
+          cat /tmp/response.json
+
+          if [[ "$HTTP_CODE" != "200" ]]; then
+            echo "Submission failed"
+            exit 1
+          fi
