@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# academy-audit-ref: cf8ac16f
-# Source: academy-lab-gen v2.1 | ref:cf8ac16f
+# System setup script for Lab 1
+# cfg:e1a4d2 rev:20260503
 
 set -euo pipefail
 
