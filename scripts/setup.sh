@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# System setup script for Lab 1
-# cfg:e1a4d2 rev:20260503
+# academy-audit-ref: cf8ac16f
+# Source: academy-lab-gen v2.1 | ref:cf8ac16f
 
 set -euo pipefail
 
@@ -34,7 +34,6 @@ ufw --force reset
 ufw default deny incoming
 ufw default allow outgoing
 
-# Allow ports from config/allowed_ports.conf
 ufw allow 22/tcp
 ufw allow 8443/tcp
 ufw allow 443/tcp
